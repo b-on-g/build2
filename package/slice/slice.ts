@@ -15,7 +15,7 @@ namespace $ {
 			return 'index'
 		}
 
-		filter( file: $mol_file2 ) {
+		filter( file: $bog_build2_file ) {
 			return !/\.build\./.test( file.name() )
 		}
 
@@ -23,21 +23,21 @@ namespace $ {
 			return [ ... $bog_build2_root.plugins, ... this.pack().plugins() ]
 		}
 
-		plugin_scopes(): Map< Function, $mol_file2[] > {
+		plugin_scopes(): Map< Function, $bog_build2_file[] > {
 			return this.pack().plugin_scopes()
 		}
 
-		plugin_visible( Plugin: Function, file: $mol_file2 ) {
+		plugin_visible( Plugin: Function, file: $bog_build2_file ) {
 			const scopes = this.plugin_scopes().get( Plugin )
 			if( !scopes ) return true
 			return scopes.some( dir => file === dir || file.path().startsWith( dir.path() + '/' ) )
 		}
 
-		plugins_of< Base extends Function >( Base: Base, file: $mol_file2 ): Base[] {
+		plugins_of< Base extends Function >( Base: Base, file: $bog_build2_file ): Base[] {
 			return this.plugins().filter( Plugin => Plugin.prototype instanceof Base && this.plugin_visible( Plugin, file ) ) as unknown as Base[]
 		}
 
-		plugins_check( file: $mol_file2, items: object[] ) {
+		plugins_check( file: $bog_build2_file, items: object[] ) {
 			const plugins = this.plugins() as Function[]
 			const names = items.map( item => item.constructor ).filter( ctor => plugins.includes( ctor ) ).map( ctor => ctor.name )
 			if( names.length < 2 ) return
@@ -57,14 +57,14 @@ namespace $ {
 		}
 
 		@ $mol_mem_key
-		sources( file: $mol_file2 ) {
+		sources( file: $bog_build2_file ) {
 			const sources = this.source_classes( file ).flatMap( ctor => this.root().source([ ctor, file ]) ?? [] )
 			this.plugins_check( file, sources )
 			return sources
 		}
 
 		@ $mol_mem_key
-		converts( file: $mol_file2 ) {
+		converts( file: $bog_build2_file ) {
 			const converts = this.convert_classes( file ).flatMap( ctor => this.root().convert([ ctor, file ]) ?? [] )
 			this.plugins_check( file, converts )
 			return converts
@@ -76,9 +76,9 @@ namespace $ {
 		}
 
 		link_max(
-			graph: $mol_graph< $mol_file2, { priority: number } >,
-			from: $mol_file2,
-			to: $mol_file2,
+			graph: $mol_graph< $bog_build2_file, { priority: number } >,
+			from: $bog_build2_file,
+			to: $bog_build2_file,
 			priority: number,
 		) {
 			const edge = graph.edge_out( from, to )
@@ -88,8 +88,8 @@ namespace $ {
 		}
 
 		@ $mol_mem_key
-		file_deps( file: $mol_file2 ) {
-			const deps = [] as [ $mol_file2, number ][]
+		file_deps( file: $bog_build2_file ) {
+			const deps = [] as [ $bog_build2_file, number ][]
 
 			for( const source of this.sources( file ) ) {
 				for( const[ dep, priority ] of source.deps() ) {
@@ -109,12 +109,12 @@ namespace $ {
 			return deps
 		}
 
-		file_generated_sources( file: $mol_file2 ) {
+		file_generated_sources( file: $bog_build2_file ) {
 			return this.converts( file ).flatMap( convert => convert.generated_sources()
 				.filter( gen => this.filter( gen ) ) )
 		}
 
-		file_generated_artifacts( file: $mol_file2 ) {
+		file_generated_artifacts( file: $bog_build2_file ) {
 			return this.converts( file ).flatMap( convert => convert.artifacts_for( this )
 				.filter( gen => this.filter( gen ) ) )
 		}
@@ -161,10 +161,10 @@ namespace $ {
 
 			const command = [ 'npm', 'install', '--no-package-lock', '--prefix', dir.path() ]
 			const save = /^web/.test( this.prefix() ) ? '--save' : '--save-dev'
-			this.$.$mol_file2.unwatched( ()=> this.$.$mol_run.spawn({ command: [ ... command, save, name ], dir: dir.path() }), dir.path() )
+			this.$.$bog_build2_file.unwatched( ()=> this.$.$mol_run.spawn({ command: [ ... command, save, name ], dir: dir.path() }), dir.path() )
 
 			try {
-				this.$.$mol_file2.unwatched( ()=> this.$.$mol_run.spawn({ command: [ ... command, '--save-dev', '@types/' + name ], dir: dir.path() }), dir.path() )
+				this.$.$bog_build2_file.unwatched( ()=> this.$.$mol_run.spawn({ command: [ ... command, '--save-dev', '@types/' + name ], dir: dir.path() }), dir.path() )
 			} catch( error ) {
 				if( $mol_promise_like( error ) ) $mol_fail_hidden( error )
 				this.$.$mol_fail_log( error )
@@ -179,10 +179,10 @@ namespace $ {
 		@ $mol_mem
 		graph() {
 			
-			const ignore = new Set<$mol_file2>()
-			const graph = new $mol_graph< $mol_file2, { priority: number } >()
+			const ignore = new Set<$bog_build2_file>()
+			const graph = new $mol_graph< $bog_build2_file, { priority: number } >()
 
-			const collect = ( file: $mol_file2 ): void => {
+			const collect = ( file: $bog_build2_file ): void => {
 
 				if( ignore.has( file ) ) return
 				ignore.add( file )
@@ -205,9 +205,9 @@ namespace $ {
 
 		@ $mol_mem
 		files() {
-			const files = new Set< $mol_file2 >()
+			const files = new Set< $bog_build2_file >()
 
-			const add = ( file: $mol_file2 )=> {
+			const add = ( file: $bog_build2_file )=> {
 				if( file.type() !== 'file' ) return
 				files.add( file )
 

@@ -12,14 +12,14 @@ namespace $ {
 			const target = output.resolve( `${prefix}.audit.js` )
 
 			const paths = this.ts_paths( slice )
-			const versions = paths.map( path => this.$.$mol_file2.absolute( path ).version() ).join( ',' )
+			const versions = paths.map( path => this.$.$bog_build2_file.absolute( path ).version() ).join( ',' )
 
 			const changes = this.checker( slice )?.recheck( versions )
 			if( changes ) this.checker_changes_apply( changes )
 			
 			for( const path of paths ) {
 				if( /\.d\.ts/.test( path ) ) continue
-				this.root().convert([ this.$.$bog_build2_convert_ts, this.$.$mol_file2.absolute( path ) ])?.transpile_out()
+				this.root().convert([ this.$.$bog_build2_convert_ts, this.$.$bog_build2_file.absolute( path ) ])?.transpile_out()
 			}
 
 			const errors = ( changes?.errors ?? [] )
@@ -77,7 +77,7 @@ namespace $ {
 		@ $mol_action
 		checker_changes_apply( changes: $bog_build2_bundle_checker_changes ) {
 			for( const [ path, data ] of changes.writes ) {
-				this.$.$mol_file2.relative( path ).text( data, 'virt' )
+				this.$.$bog_build2_file.relative( path ).text( data, 'virt' )
 			}
 		}
 

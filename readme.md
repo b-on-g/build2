@@ -30,7 +30,7 @@ node bog/build2/start/-/node.js <модуль>
 namespace $ {
 
 	export class $my_gql extends $bog_build2_convert {
-		static match( file: $mol_file2 ) { return /\.gql$/.test( file.name() ) }
+		static match( file: $bog_build2_file ) { return /\.gql$/.test( file.name() ) }
 		generated_sources() { return [ /* .ts из схемы */ ] }
 	}
 

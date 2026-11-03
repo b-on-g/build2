@@ -37,7 +37,7 @@ namespace $ {
 			concater.add( this.js_bootstrap(), 'mam.jam.js' )
 			files = files.filter( file => file.relate( root_dir ) !== 'mam.jam.js' )
 
-			const boot_rank = ( file: $mol_file2 )=> {
+			const boot_rank = ( file: $bog_build2_file )=> {
 				switch( file.relate( root_dir ) ) {
 					case 'mol/test/test.web.test.ts.js': return -2
 					case 'mol/test/test.node.test.ts.js': return -2

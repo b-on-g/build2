@@ -5,13 +5,13 @@ namespace $ {
 	type ts_SourceFile = import('typescript').SourceFile
 
 	export type $bog_build2_source_ts_deps = {
-		deps: Map< $mol_file2, number >
+		deps: Map< $bog_build2_file, number >
 		npm: $bog_build2_source_ts_npm
 	}
 
 	export class $bog_build2_source_ts extends $bog_build2_source {
 
-		static match( file: $mol_file2 ): boolean {
+		static match( file: $bog_build2_file ): boolean {
 			return /tsx?$/.test( file.ext() )
 		}
 
@@ -37,7 +37,7 @@ namespace $ {
 			return String( node.escapedText ).match( /\$([^$]*)/ )?.[ 1 ] ?? null
 		}
 
-		path_add( deps: Map< $mol_file2, number >, path: string, priority: number ) {
+		path_add( deps: Map< $bog_build2_file, number >, path: string, priority: number ) {
 			const dep = this.path_resolve( path )
 			if( dep ) this.dep_add( deps, dep, priority )
 			if( path[0] === '.' ) this.registry_add( deps, priority )
@@ -48,7 +48,7 @@ namespace $ {
 			return $node.typescript.isExternalModule( this.ts_source() )
 		}
 
-		npm_dep_add( deps: Map< $mol_file2, number >, name: string, priority: number ) {
+		npm_dep_add( deps: Map< $bog_build2_file, number >, name: string, priority: number ) {
 
 			if( $node_internal_check( name ) ) return
 			if( name === 'internal' ) return
@@ -56,7 +56,7 @@ namespace $ {
 			this.dep_add( deps, this.root().dir().resolve( `node_modules/${ name }/package.json` ), priority )
 		}
 
-		implicit_deps_add( deps: Map< $mol_file2, number > ) {
+		implicit_deps_add( deps: Map< $bog_build2_file, number > ) {
 			const file = this.file()
 
 			if( /\.tsx$/.test( file.name() ) ) this.dep_add( deps, this.lookup( 'mol/jsx' ), 0 )

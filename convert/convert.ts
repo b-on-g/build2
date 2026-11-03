@@ -3,7 +3,7 @@ namespace $ {
 	/** Source file transpiler. */
 	export class $bog_build2_convert extends $mol_object2 {
 
-		static match( _file: $mol_file2 ): boolean {
+		static match( _file: $bog_build2_file ): boolean {
 			return false
 		}
 
@@ -11,22 +11,22 @@ namespace $ {
 			return $mol_fail( new Error( 'root is not set' ) )
 		}
 
-		source(): $mol_file2 {
+		source(): $bog_build2_file {
 			return $mol_fail( new Error( 'source is not set' ) )
 		}
 
 		@ $mol_mem
-		generated_artifacts(): $mol_file2[] {
+		generated_artifacts(): $bog_build2_file[] {
 			return []
 		}
 
 		/** Will be included in further processing (converting, deps searching) */
 		@ $mol_mem
-		generated_sources(): $mol_file2[] {
+		generated_sources(): $bog_build2_file[] {
 			return []
 		}
 
-		artifacts_for( _slice: $bog_build2_package_slice ): $mol_file2[] {
+		artifacts_for( _slice: $bog_build2_package_slice ): $bog_build2_file[] {
 			return this.generated_artifacts()
 		}
 

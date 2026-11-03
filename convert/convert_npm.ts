@@ -2,7 +2,7 @@ namespace $ {
 
 	export class $bog_build2_convert_npm extends $bog_build2_convert {
 
-		static match( file: $mol_file2 ): boolean {
+		static match( file: $bog_build2_file ): boolean {
 			if( file.name() !== 'package.json' ) return false
 
 			const parent = file.parent()

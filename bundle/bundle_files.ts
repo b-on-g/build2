@@ -9,13 +9,13 @@ namespace $ {
 
 			const root_dir = this.root().dir()
 			
-			const targets: $mol_file2[] = []
+			const targets: $bog_build2_file[] = []
 
 			const files = [ ...slice.files() ].filter( file => /meta.tree$/.test( file.name() ) )
 			files.forEach( source => {
 				const tree = this.$.$mol_tree2_from_string( source.text(), source.path() )
 
-				const pushFile = (file:$mol_file2) => {
+				const pushFile = (file:$bog_build2_file) => {
 					const start = Date.now()
 					const target = output.resolve( file.relate( root_dir ) )
 					target.buffer( file.buffer() )
@@ -23,7 +23,7 @@ namespace $ {
 					this.log( target, Date.now() - start )
 				}
 
-				const addFilesRecursive = (file:$mol_file2) =>{
+				const addFilesRecursive = (file:$bog_build2_file) =>{
 					
 					if ( ! file.exists() ) return
 					if( file.type() === 'dir') {

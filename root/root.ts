@@ -11,7 +11,7 @@ namespace $ {
 			this.plugins.add( Plugin )
 		}
 
-		static plugins_load( script: $mol_file2 ): $bog_build2_plugin[] {
+		static plugins_load( script: $bog_build2_file ): $bog_build2_plugin[] {
 			const plugins = this.plugins
 			this.plugins = new Set
 
@@ -25,7 +25,7 @@ namespace $ {
 
 		@ $mol_mem
 		dir() {
-			return this.$.$mol_file2.relative( '.' )
+			return this.$.$bog_build2_file.relative( '.' )
 		}
 
 		@ $mol_mem
@@ -95,7 +95,7 @@ namespace $ {
 		}
 
 		@ $mol_mem_key
-		pack( dir: $mol_file2 ) {
+		pack( dir: $bog_build2_file ) {
 			const pack = new this.$.$bog_build2_package
 			pack.root = $mol_const( this )
 			pack.dir = $mol_const( dir )
@@ -113,7 +113,7 @@ namespace $ {
 		}
 
 		@ $mol_mem_key
-		source< Source extends typeof $bog_build2_source >( [ Source, file ]: [ Source, $mol_file2 ] ) {
+		source< Source extends typeof $bog_build2_source >( [ Source, file ]: [ Source, $bog_build2_file ] ) {
 			if( !Source.match( file ) ) return null
 			
 			const source = new Source
@@ -123,7 +123,7 @@ namespace $ {
 		}
 
 		@ $mol_mem_key
-		convert< Convert extends typeof $bog_build2_convert >( [ Convert, file ]: [ Convert, $mol_file2 ] ) {
+		convert< Convert extends typeof $bog_build2_convert >( [ Convert, file ]: [ Convert, $bog_build2_file ] ) {
 			if( !Convert.match( file ) ) return null
 			
 			const convert = new Convert

@@ -51,14 +51,14 @@ namespace $ {
 		}
 
 		protected is_git( path: string ) {
-			const mod = this.$.$mol_file2.absolute( path )
+			const mod = this.$.$bog_build2_file.absolute( path )
 			const git_dir = mod.resolve( '.git' )
 			return git_dir.exists() && git_dir.type() === 'dir'
 		}
 
 		@ $mol_action
 		protected submodule_dirs( opts: { dir: string, recursive?: boolean } ) {
-			const dir = this.$.$mol_file2.absolute( opts.dir )
+			const dir = this.$.$bog_build2_file.absolute( opts.dir )
 
 			try {
 				const output = this.$.$mol_run.spawn({
@@ -136,7 +136,7 @@ namespace $ {
 		}
 
 		protected override init( path: string ) {
-			const mod = this.$.$mol_file2.absolute( path )
+			const mod = this.$.$bog_build2_file.absolute( path )
 			const repo = this.repo_ensured( path )
 
 			const command = [

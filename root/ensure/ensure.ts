@@ -31,7 +31,7 @@ namespace $ {
 		meta( path: string ) {
 
 			let decls = [] as $mol_tree2[]
-			const pack = this.$.$mol_file2.absolute( path )
+			const pack = this.$.$bog_build2_file.absolute( path )
 
 			if( !pack.exists() || pack.type() !== 'dir' ) return null
 
@@ -72,7 +72,7 @@ namespace $ {
 		@ $mol_mem_key
 		ensure( path: string ): boolean {
 
-			const mod = this.$.$mol_file2.absolute( path )
+			const mod = this.$.$bog_build2_file.absolute( path )
 			const parent = mod.parent()
 
 			if( mod !== this.dir() ) this.ensure( parent.path() )

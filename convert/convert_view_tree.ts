@@ -2,7 +2,7 @@ namespace $ {
 
 	export class $bog_build2_convert_view_tree extends $bog_build2_convert {
 
-		static match( file: $mol_file2 ): boolean {
+		static match( file: $bog_build2_file ): boolean {
 			return /\.view\.tree$/.test( file.name() )
 		}
 

@@ -1,7 +1,7 @@
 namespace $ {
 
 	type $bog_build2_server_watch_host = {
-		web_js_artifacts( path: string ): $mol_file2[]
+		web_js_artifacts( path: string ): $bog_build2_file[]
 	}
 
 	export class $bog_build2_server_watch extends $mol_object2 {

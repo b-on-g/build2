@@ -10,13 +10,13 @@ namespace $ {
 		/** Artifacts shared by all slices of pack */
 		@ $mol_mem_key
 		pack_artifacts( _pack: $bog_build2_package ) {
-			return [] as $mol_file2[]
+			return [] as $bog_build2_file[]
 		}
 
 		/** Artifacts specific to a slice */
 		@ $mol_mem_key
 		slice_artifacts( _slice: $bog_build2_package_slice ) {
-			return [] as $mol_file2[]
+			return [] as $bog_build2_file[]
 		}
 
 		@ $mol_mem_key
@@ -27,7 +27,7 @@ namespace $ {
 			]
 		}
 
-		log( target: $mol_file2, duration: number ) {
+		log( target: $bog_build2_file, duration: number ) {
 
 			const path = target.relate( this.root().dir() )
 			
@@ -44,11 +44,11 @@ namespace $ {
 			return this.root().dir().resolve( 'mam.jam.js' ).text()
 		}
 
-		module_key( file: $mol_file2 ) {
+		module_key( file: $bog_build2_file ) {
 			return '/' + file.relate( this.root().dir() ).replace( /\.js$/, '' ).replace( /\.(tsx?|jsx?)$/, '' )
 		}
 
-		module_link( file: $mol_file2, content: string ) {
+		module_link( file: $bog_build2_file, content: string ) {
 
 			const key = ( path: string )=> {
 				const dep = this.root().source([ this.$.$bog_build2_source_js, file ])?.path_module( path )
@@ -67,7 +67,7 @@ namespace $ {
 
 		}
 
-		module_add( concater: $mol_sourcemap_builder, file: $mol_file2, output: $mol_file2 ) {
+		module_add( concater: $mol_sourcemap_builder, file: $bog_build2_file, output: $bog_build2_file ) {
 
 			const root = this.root().dir()
 			const path = file.relate( root )

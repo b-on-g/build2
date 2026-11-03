@@ -31,7 +31,7 @@ namespace $ {
 
 		static commonjs = /typeof +exports|module\.exports|\bexports\.\w+\s*=/
 
-		static match( file: $mol_file2 ): boolean {
+		static match( file: $bog_build2_file ): boolean {
 			return /\.js$/.test( file.ext() )
 		}
 

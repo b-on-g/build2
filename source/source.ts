@@ -3,7 +3,7 @@ namespace $ {
 	/** Source file dependencies extractor. */
 	export class $bog_build2_source extends $mol_object2 {
 
-		static match( _file: $mol_file2 ): boolean {
+		static match( _file: $bog_build2_file ): boolean {
 			return false
 		}
 
@@ -11,12 +11,12 @@ namespace $ {
 			return $mol_fail( new Error( 'root is not set' ) )
 		}
 
-		file(): $mol_file2 {
+		file(): $bog_build2_file {
 			return $mol_fail( new Error( 'file is not set' ) )
 		}
 
 		deps() {
-			return new Map< $mol_file2, number >()
+			return new Map< $bog_build2_file, number >()
 		}
 
 		priority( line: string ) {
@@ -24,17 +24,17 @@ namespace $ {
 			return - indent[ 0 ].replace( /\t/g, '    ' ).length / 4
 		}
 
-		dep_add( deps: Map< $mol_file2, number >, dep: $mol_file2, priority: number ) {
+		dep_add( deps: Map< $bog_build2_file, number >, dep: $bog_build2_file, priority: number ) {
 			const existed = deps.get( dep )
 			if( existed === undefined || existed < priority ) deps.set( dep, priority )
 		}
 
-		fqn_add( deps: Map< $mol_file2, number >, fqn: string, priority: number ) {
+		fqn_add( deps: Map< $bog_build2_file, number >, fqn: string, priority: number ) {
 			const path = fqn === 'npm' ? 'bog/build2/npm' : fqn.replace( /[._]/g, '/' )
 			this.dep_add( deps, this.lookup( path ), priority )
 		}
 
-		registry_add( deps: Map< $mol_file2, number >, priority: number ) {
+		registry_add( deps: Map< $bog_build2_file, number >, priority: number ) {
 			this.dep_add( deps, this.lookup( 'node' ), priority )
 		}
 
@@ -58,7 +58,7 @@ namespace $ {
 			return variants.map( variant => dir.resolve( variant ) ).find( file => file.type() === 'file' ) ?? null
 		}
 
-		lookup( path: string ): $mol_file2 {
+		lookup( path: string ): $bog_build2_file {
 
 			const target = path + '/' + path.replace( /.*\//, '' )
 			let dep = this.root().dir().resolve( target )

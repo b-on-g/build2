@@ -1,7 +1,7 @@
 namespace $ {
 
 	type $bog_build2_server_slave_host = {
-		requested_bundle_artifacts( path: string, name: string ): $mol_file2[]
+		requested_bundle_artifacts( path: string, name: string ): $bog_build2_file[]
 	}
 
 	export class $bog_build2_server_slave extends $mol_object2 {

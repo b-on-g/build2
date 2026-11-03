@@ -7,7 +7,7 @@ namespace $ {
 			return $mol_fail( new Error( 'root is not set' ) )
 		}
 
-		dir(): $mol_file2 {
+		dir(): $bog_build2_file {
 			return $mol_fail( new Error( 'dir is not set' ) )
 		}
 
@@ -39,13 +39,13 @@ namespace $ {
 		}
 
 		@ $mol_mem
-		plugin_scopes(): Map< Function, $mol_file2[] > {
+		plugin_scopes(): Map< Function, $bog_build2_file[] > {
 			return this.slice( this.$.$bog_build2_package_slice_build ).scopes( this.plugins() )
 		}
 
 		@ $mol_mem
 		bundles_generated() {
-			const files = new Set< $mol_file2 >()
+			const files = new Set< $bog_build2_file >()
 
 			for (const slice of this.slices()) {
 

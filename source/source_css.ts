@@ -25,7 +25,7 @@ namespace $ {
 			})
 		})()
 
-		static match( file: $mol_file2 ): boolean {
+		static match( file: $bog_build2_file ): boolean {
 			return /\.css?$/.test( file.name() )
 		}
 

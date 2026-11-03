@@ -2,7 +2,7 @@ namespace $ {
 
 	export class $bog_build2_demo_plugin_md extends $bog_build2_convert {
 
-		static match( file: $mol_file2 ) {
+		static match( file: $bog_build2_file ) {
 			return /\.text\.md$/.test( file.name() )
 		}
 

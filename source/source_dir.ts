@@ -2,7 +2,7 @@ namespace $ {
 
 	export class $bog_build2_source_dir extends $bog_build2_source {
 
-		static match( file: $mol_file2 ): boolean {
+		static match( file: $bog_build2_file ): boolean {
 			return file.type() === 'dir'
 		}
 

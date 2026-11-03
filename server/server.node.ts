@@ -212,10 +212,10 @@ namespace $ {
 
 		bundle_artifacts< Bundle extends typeof $bog_build2_bundle >( Bundle: Bundle, slice: $bog_build2_package_slice ) {
 			const bundle = this.builder().bundle( Bundle )
-			return bundle.artifacts( slice ) as $mol_file2[]
+			return bundle.artifacts( slice ) as $bog_build2_file[]
 		}
 
-		reply_dir( msg: $mol_rest_message, dir: $mol_file2 ) {
+		reply_dir( msg: $mol_rest_message, dir: $bog_build2_file ) {
 			if( dir.resolve( 'index.html' ).exists() || dir.resolve( 'index.xml.tree' ).exists() ) {
 				return this.redirect( msg, `${ msg.uri().pathname.replace( /\/?$/, '/' ) }-/test.html${ msg.uri().search }` )
 			}
@@ -265,7 +265,7 @@ namespace $ {
 			})
 		}
 
-		reply_file( msg: $mol_rest_message, file: $mol_file2 ) {
+		reply_file( msg: $mol_rest_message, file: $bog_build2_file ) {
 			if( !file.exists() ) return msg.reply( `${ file.relate() } not found`, { code: $mol_rest_code[ 'Not Found' ] } )
 
 			const output = ( msg.port as any ).output
@@ -284,7 +284,7 @@ namespace $ {
 			})
 		}
 
-		test_html( file: $mol_file2 ) {
+		test_html( file: $bog_build2_file ) {
 			const version = file.parent().resolve( 'web.js' ).version()
 			const audit = file.parent().resolve( 'web.audit.js' )
 			const audit_version = audit.exists() ? audit.version() : version

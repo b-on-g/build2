@@ -12,7 +12,7 @@ namespace $ {
 			const config = pack.dir().resolve( 'config.xml' )
 			if( !config.exists() ) return []
 
-			const targets = [] as $mol_file2[]
+			const targets = [] as $bog_build2_file[]
 			const config_target = cordova.resolve( 'config.xml' )
 			config_target.text( config.text() )
 			targets.push( config_target )

@@ -2,7 +2,7 @@ namespace $ {
 
 	class $bog_build2_root_test_hello extends $bog_build2_convert {
 
-		static match( file: $mol_file2 ) {
+		static match( file: $bog_build2_file ) {
 			return /\.hello$/.test( file.name() )
 		}
 

@@ -10,8 +10,8 @@ namespace $ {
 			return [ ... $bog_build2_root.plugins ]
 		}
 
-		plugin_scopes(): Map< Function, $mol_file2[] > {
-			return new Map< Function, $mol_file2[] >()
+		plugin_scopes(): Map< Function, $bog_build2_file[] > {
+			return new Map< Function, $bog_build2_file[] >()
 		}
 
 		npm_package( name: string ) {
@@ -20,7 +20,7 @@ namespace $ {
 
 		@ $mol_mem
 		build_files() {
-			const files = [] as $mol_file2[]
+			const files = [] as $bog_build2_file[]
 
 			for( const dir of this.graph().sorted ) {
 				if( dir.type() !== 'dir' ) continue
@@ -38,12 +38,12 @@ namespace $ {
 
 	export class $bog_build2_package_slice_build extends $bog_build2_package_slice_build_scan {
 
-		filter( file: $mol_file2 ) {
+		filter( file: $bog_build2_file ) {
 			if( /\.(web|test|dev)\./.test( file.name() ) ) return false
 			return !this.host().has( this.module( file ).path() )
 		}
 
-		module( file: $mol_file2 ) {
+		module( file: $bog_build2_file ) {
 			let dir = file.type() === 'dir' ? file : file.parent()
 			while( /^-/.test( dir.name() ) ) dir = dir.parent()
 			return dir
@@ -51,14 +51,14 @@ namespace $ {
 
 		@ $mol_mem
 		host() {
-			const map = this.$.$mol_file2.absolute( $node.path.resolve( process.argv[1] ) + '.map' )
+			const map = this.$.$bog_build2_file.absolute( $node.path.resolve( process.argv[1] ) + '.map' )
 			if( !map.exists() ) $mol_fail( new Error( `Builder sourcemap not found: ${ map.path() }` ) )
 
 			const sources = JSON.parse( map.text() ).sources as string[]
 			return new Set( sources.map( source => this.module( map.parent().resolve( source ) ).path() ) )
 		}
 
-		file_deps( file: $mol_file2 ) {
+		file_deps( file: $bog_build2_file ) {
 			const deps = super.file_deps( file )
 			if( file.type() !== 'dir' ) return deps
 			return deps.filter( ([ dep ])=> dep !== file.parent() )
@@ -73,10 +73,10 @@ namespace $ {
 		}
 
 		@ $mol_mem_key
-		reach( file: $mol_file2 ) {
-			const found = new Set< $mol_file2 >()
+		reach( file: $bog_build2_file ) {
+			const found = new Set< $bog_build2_file >()
 
-			const visit = ( file: $mol_file2 ): void => {
+			const visit = ( file: $bog_build2_file ): void => {
 				if( found.has( file ) ) return
 				found.add( file )
 				for( const[ dep ] of this.file_deps( file ) ) visit( dep )
@@ -93,8 +93,8 @@ namespace $ {
 			return dir
 		}
 
-		scopes( plugins: Function[] ): Map< Function, $mol_file2[] > {
-			const scopes = new Map< Function, $mol_file2[] >()
+		scopes( plugins: Function[] ): Map< Function, $bog_build2_file[] > {
+			const scopes = new Map< Function, $bog_build2_file[] >()
 
 			for( const Plugin of plugins ) {
 				const module = this.plugin_module( Plugin )
